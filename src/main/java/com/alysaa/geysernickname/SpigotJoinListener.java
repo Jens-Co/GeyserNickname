@@ -16,6 +16,7 @@ public class SpigotJoinListener implements Listener {
         if (isBedrockPlayer) {
             FloodgatePlayer player = FloodgateAPI.getPlayer(event.getPlayer().getUniqueId());
             event.getPlayer().setDisplayName(player.getUsername());
+            event.getPlayer().setPlayerListName(player.getUsername());
         }
     }
 }
