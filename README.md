@@ -1,3 +1,5 @@
 # GeyserNickname
 
-Sets a nickname for all GeyserPlayers connected.
+This plugin removes the floodgate given prefix (Default:*).
+do know that this will only affects the Chat & Tablist. 
+this plugin is only cosmetics and serverwise will still use *
