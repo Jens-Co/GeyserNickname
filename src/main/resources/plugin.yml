@@ -1,0 +1,6 @@
+name: GeyserNicknamer
+main: com.alysaa.geysernickname.NickNamer
+version: 1.0
+api-version: 1.15
+depend: [Geyser-Spigot]
+description: Geyser Plugin Addon.
