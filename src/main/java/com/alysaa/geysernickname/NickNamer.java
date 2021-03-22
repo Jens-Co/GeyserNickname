@@ -23,12 +23,19 @@ public class NickNamer extends JavaPlugin implements Listener {
     Plugin plugin;
 
     public void onEnable() {
+        boolean hasFloodgate = Bukkit.getPluginManager().getPlugin("floodgate-bukkit") != null;
+        boolean hasGeyser = Bukkit.getPluginManager().getPlugin("Geyser-Spigot") != null;
+        if (!hasFloodgate && !hasGeyser) {
+            getLogger().warning("There is no Geyser or Floodgate plugin detected! Disabling...");
+            Bukkit.getPluginManager().disablePlugin(this);
+            return;
+        }
         createFiles();
         getLogger().info("Has been enabled");
             Bukkit.getServer().getPluginManager().registerEvents(this, this);
         }
     public void onDisable() {
-
+        getLogger().info("Has been disabled");
     }
     /**
      * Determines if a player is from Bedrock
