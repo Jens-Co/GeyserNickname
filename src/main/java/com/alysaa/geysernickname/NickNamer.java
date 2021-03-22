@@ -7,6 +7,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.geysermc.connector.GeyserConnector;
 import org.geysermc.floodgate.FloodgateAPI;
@@ -19,12 +20,13 @@ import java.util.UUID;
 
 public class NickNamer extends JavaPlugin implements Listener {
     private FileConfiguration config;
+    Plugin plugin;
 
     public void onEnable() {
         createFiles();
         getLogger().info("Has been enabled");
-
-    }
+            Bukkit.getServer().getPluginManager().registerEvents(this, this);
+        }
     public void onDisable() {
 
     }
@@ -34,18 +36,20 @@ public class NickNamer extends JavaPlugin implements Listener {
      * @return true if the player is from Bedrock
      */
     public boolean isBedrockPlayer(UUID uuid) {
-        if (getConfig().getBoolean("Enable-Nicknames")) {
+        if (!config.getBoolean("Enable-NickNames")){
             return GeyserConnector.getInstance().getPlayerByUuid(uuid) != null;
         } else {
-            Bukkit.getServer().getPluginManager().registerEvents(this, this);
             return FloodgateAPI.isBedrockPlayer(uuid);
         }
     }
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-        FloodgatePlayer player = FloodgateAPI.getPlayer(event.getPlayer().getUniqueId());
-        event.getPlayer().setDisplayName(player.getUsername());
-        event.getPlayer().setPlayerListName(player.getUsername());
+        boolean isBedrockPlayer = this.isBedrockPlayer(event.getPlayer().getUniqueId());
+        if (isBedrockPlayer) {
+            FloodgatePlayer player = FloodgateAPI.getPlayer(event.getPlayer().getUniqueId());
+            event.getPlayer().setDisplayName(player.getUsername());
+            event.getPlayer().setPlayerListName(player.getUsername());
+        }
     }
     private void createFiles() {
         File configFile = new File(getDataFolder(), "config.yml");
