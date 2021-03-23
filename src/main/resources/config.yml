@@ -1,3 +1,4 @@
-#Floodgate NickName
+# Floodgate NickName
 
+# This option will change the Bedrock username to its true Username if floodgate is being used.
 Enable-Nicknames: true

@@ -10,7 +10,7 @@ pipeline {
         }
         stage('Post') {
             steps {
-                archiveArtifacts 'target/GeyserNickname-1.0-SNAPSHOT.jar'
+                archiveArtifacts 'target/FloodgateRealName-1.0-SNAPSHOT.jar'
                   }
 
                 }
